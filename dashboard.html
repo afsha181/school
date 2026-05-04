@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | EduAccess Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Additional dashboard-specific styles */
+        .dashboard-container {
+            max-width: 900px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.96);
+            border-radius: 2rem;
+            box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+        }
+
+        .dashboard-header {
+            background: linear-gradient(135deg, #0f2b3d 0%, #1a4a6a 100%);
+            padding: 2rem;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .user-info h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .user-info p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 0.6rem 1.2rem;
+            border-radius: 2rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .dashboard-content {
+            padding: 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: #f8fafd;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            transition: transform 0.2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .stat-card i {
+            font-size: 2rem;
+            color: #1b6b93;
+            margin-bottom: 0.8rem;
+        }
+
+        .stat-card h3 {
+            font-size: 1.8rem;
+            color: #0f2b3d;
+            margin-bottom: 0.3rem;
+        }
+
+        .stat-card p {
+            color: #6c8eaa;
+            font-size: 0.85rem;
+        }
+
+        .quick-actions {
+            background: #f0f6fa;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            margin-top: 1rem;
+        }
+
+        .quick-actions h3 {
+            color: #0f2b3d;
+            margin-bottom: 1rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            background: white;
+            border: 1px solid #cde0ea;
+            padding: 0.7rem 1.2rem;
+            border-radius: 2rem;
+            color: #1b6b93;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .action-btn:hover {
+            background: #1b6b93;
+            color: white;
+            border-color: #1b6b93;
+        }
+
+        .welcome-message {
+            background: linear-gradient(135deg, #ffcd4a20 0%, #ffcd4a10 100%);
+            padding: 1rem;
+            border-radius: 1rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #ffcd4a;
+        }
+
+        @media (max-width: 600px) {
+            .dashboard-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <div class="user-info">
+                <h2 id="userName">Loading...</h2>
+                <p id="userRole">Role: <span>—</span></p>
+            </div>
+            <button class="logout-btn" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i> Sign Out
+            </button>
+        </div>
+
+        <div class="dashboard-content">
+            <div class="welcome-message" id="welcomeMsg">
+                <i class="fas fa-school"></i> Welcome to your personalized dashboard
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="fas fa-book"></i>
+                    <h3 id="coursesCount">0</h3>
+                    <p>Enrolled Courses</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-tasks"></i>
+                    <h3 id="assignmentsCount">0</h3>
+                    <p>Pending Assignments</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-clock"></i>
+                    <h3 id="attendanceCount">0</h3>
+                    <p>Attendance Rate</p>
+                </div>
+            </div>
+
+            <div class="quick-actions">
+                <h3><i class="fas fa-bolt"></i> Quick Actions</h3>
+                <div class="action-buttons">
+                    <button class="action-btn" onclick="alert('📚 Opening assignments... (Demo)')">
+                        <i class="fas fa-file-alt"></i> View Assignments
+                    </button>
+                    <button class="action-btn" onclick="alert('📅 Opening schedule... (Demo)')">
+                        <i class="fas fa-calendar"></i> Class Schedule
+                    </button>
+                    <button class="action-btn" onclick="alert('💬 Opening messages... (Demo)')">
+                        <i class="fas fa-comments"></i> Messages
+                    </button>
+                    <button class="action-btn" onclick="alert('📊 Viewing grades... (Demo)')">
+                        <i class="fas fa-chart-line"></i> My Grades
+                    </button>
+                </div>
+            </div>
+        </div>
+        <footer style="text-align: center; padding: 1rem;">
+            <i class="far fa-clock"></i> Last login: <span id="lastLoginTime">—</span>
+        </footer>
+    </div>
+
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
