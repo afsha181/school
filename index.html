@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>School Management System | Smart Learning Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Login Container -->
+    <div id="loginContainer" class="login-container">
+        <div class="school-header">
+            <div class="school-icon">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <h1>Smart School Portal</h1>
+            <p>Sign in to your personalized dashboard</p>
+        </div>
+
+        <div class="form-wrapper">
+            <form id="loginForm">
+                <div class="input-group">
+                    <label for="username"><i class="far fa-user-circle"></i> Username or Email</label>
+                    <div class="input-field">
+                        <i class="fas fa-envelope"></i>
+                        <input type="text" id="username" name="username" placeholder="Enter your username" autocomplete="off" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="password"><i class="fas fa-lock"></i> Password</label>
+                    <div class="input-field">
+                        <i class="fas fa-key"></i>
+                        <input type="password" id="password" name="password" placeholder="••••••••" required>
+                    </div>
+                </div>
+
+                <div class="options-row">
+                    <label class="checkbox">
+                        <input type="checkbox" id="rememberCheck"> <span>Keep me signed in</span>
+                    </label>
+                    <a href="#" class="forgot-link" id="forgotPwdLink">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="login-btn" id="loginBtn">
+                    <span>Access Dashboard</span> <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
+
+            <div id="loginMessage" class="message-area">
+                <i class="fas fa-shield-alt"></i> Secure school environment
+            </div>
+        </div>
+
+        <div class="demo-hint">
+            <i class="fas fa-flask"></i>
+            <div><strong>Demo Credentials:</strong></div>
+            <div><span style="background:#ffcd4a;">Admin:</span> admin / admin123 &nbsp;|&nbsp; 
+                 <span style="background:#4caf50;">Teacher:</span> teacher / teach123 &nbsp;|&nbsp; 
+                 <span style="background:#2196f3;">Student:</span> student / student123</div>
+        </div>
+        <footer>
+            <i class="far fa-copyright"></i> 2025 Smart School System — Role-Based Access Portal
+        </footer>
+    </div>
+
+    <!-- ==================== ADMIN DASHBOARD ==================== -->
+    <div id="adminDashboard" class="dashboard-container" style="display: none;">
+        <div class="dashboard-header admin-header">
+            <div class="user-info">
+                <h2 id="adminName">Admin User</h2>
+                <p><i class="fas fa-crown"></i> Role: <span id="adminRole">Administrator</span></p>
+                <p><i class="fas fa-building"></i> Springfield School District</p>
+            </div>
+            <div class="header-actions">
+                <button class="logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Sign Out
+                </button>
+            </div>
+        </div>
+
+        <div class="dashboard-tabs">
+            <button class="tab-btn active" onclick="showAdminTab('overview')">
+                <i class="fas fa-chart-line"></i> Overview
+            </button>
+            <button class="tab-btn" onclick="showAdminTab('users')">
+                <i class="fas fa-users"></i> Manage Users
+            </button>
+            <button class="tab-btn" onclick="showAdminTab('classes')">
+                <i class="fas fa-chalkboard"></i> Classes
+            </button>
+            <button class="tab-btn" onclick="showAdminTab('reports')">
+                <i class="fas fa-file-alt"></i> Reports
+            </button>
+            <button class="tab-btn" onclick="showAdminTab('settings')">
+                <i class="fas fa-cog"></i> Settings
+            </button>
+        </div>
+
+        <div class="dashboard-content">
+            <!-- Overview Tab -->
+            <div id="adminOverview" class="tab-content active">
+                <div class="welcome-message">
+                    <i class="fas fa-chart-simple"></i> Welcome back, <span id="adminWelcomeName">Admin</span>! Here's your institution overview.
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <i class="fas fa-user-graduate"></i>
+                        <h3 id="totalStudents">0</h3>
+                        <p>Total Students</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-chalkboard-user"></i>
+                        <h3 id="totalTeachers">0</h3>
+                        <p>Total Teachers</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-book"></i>
+                        <h3 id="totalCourses">0</h3>
+                        <p>Active Courses</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-dollar-sign"></i>
+                        <h3 id="totalRevenue">0</h3>
+                        <p>Revenue (This Month)</p>
+                    </div>
+                </div>
+                <div class="quick-actions">
+                    <h3><i class="fas fa-bolt"></i> Quick Actions</h3>
+                    <div class="action-buttons">
+                        <button class="action-btn" onclick="showNotification('Add new student form opened')">
+                            <i class="fas fa-user-plus"></i> Add Student
+                        </button>
+                        <button class="action-btn" onclick="showNotification('Add new teacher form opened')">
+                            <i class="fas fa-chalkboard-user"></i> Add Teacher
+                        </button>
+                        <button class="action-btn" onclick="showNotification('Create new course')">
+                            <i class="fas fa-plus-circle"></i> Create Course
+                        </button>
+                        <button class="action-btn" onclick="showNotification('Generate reports')">
+                            <i class="fas fa-chart-bar"></i> Generate Report
+                        </button>
+                    </div>
+                </div>
+                <div class="recent-activity">
+                    <h3><i class="fas fa-history"></i> Recent Activities</h3>
+                    <div class="activity-list" id="adminActivities">
+                        <div class="activity-item">
+                            <i class="fas fa-user-plus"></i>
+                            <div><strong>New student registered</strong><p>John Doe joined Grade 10 - 2 hours ago</p></div>
+                        </div>
+                        <div class="activity-item">
+                            <i class="fas fa-book"></i>
+                            <div><strong>New course created</strong><p>Advanced Mathematics - 5 hours ago</p></div>
+                        </div>
+                        <div class="activity-item">
+                            <i class="fas fa-chalkboard"></i>
+                            <div><strong>Teacher assigned</strong><p>Ms. Smith to Physics class - Yesterday</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Users Management Tab -->
+            <div id="adminUsers" class="tab-content" style="display: none;">
+                <h3><i class="fas fa-users"></i> User Management</h3>
+                <div class="user-table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr><th>Name</th><th>Role</th><th>Email</th><th>Status</th><th>Actions</th></tr>
+                        </thead>
+                        <tbody id="usersTableBody">
+                            <tr><td>John Smith</td><td>Student</td><td>john@school.com</td><td><span class="badge active">Active</span></td><td><button class="icon-btn" onclick="showNotification('Edit user')"><i class="fas fa-edit"></i></button></td></tr>
+                            <tr><td>Sarah Johnson</td><td>Teacher</td><td>sarah@school.com</td><td><span class="badge active">Active</span></td><td><button class="icon-btn" onclick="showNotification('Edit user')"><i class="fas fa-edit"></i></button></td></tr>
+                            <tr><td>Michael Brown</td><td>Student</td><td>michael@school.com</td><td><span class="badge inactive">Inactive</span></td><td><button class="icon-btn" onclick="showNotification('Edit user')"><i class="fas fa-edit"></i></button></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Classes Tab -->
+            <div id="adminClasses" class="tab-content" style="display: none;">
+                <h3><i class="fas fa-chalkboard"></i> Class Management</h3>
+                <div class="class-grid">
+                    <div class="class-card"><h4>Mathematics</h4><p>Teacher: Dr. Smith</p><p>Students: 25</p><button class="small-btn" onclick="showNotification('View class details')">Manage</button></div>
+                    <div class="class-card"><h4>Physics</h4><p>Teacher: Mr. Johnson</p><p>Students: 20</p><button class="small-btn" onclick="showNotification('View class details')">Manage</button></div>
+                    <div class="class-card"><h4>Chemistry</h4><p>Teacher: Ms. Davis</p><p>Students: 18</p><button class="small-btn" onclick="showNotification('View class details')">Manage</button></div>
+                    <div class="class-card"><h4>Biology</h4><p>Teacher: Dr. Wilson</p><p>Students: 22</p><button class="small-btn" onclick="showNotification('View class details')">Manage</button></div>
+                </div>
+            </div>
+
+            <!-- Reports Tab -->
+            <div id="adminReports" class="tab-content" style="display: none;">
+                <h3><i class="fas fa-chart-line"></i> System Reports</h3>
+                <div class="report-list">
+                    <div class="report-item"><i class="fas fa-file-pdf"></i><span>Student Performance Report - Q1 2025</span><button class="small-btn" onclick="showNotification('Downloading report')">Download</button></div>
+                    <div class="report-item"><i class="fas fa-file-pdf"></i><span>Attendance Summary - March 2025</span><button class="small-btn" onclick="showNotification('Downloading report')">Download</button></div>
+                    <div class="report-item"><i class="fas fa-file-excel"></i><span>Financial Report - Q1 2025</span><button class="small-btn" onclick="showNotification('Downloading report')">Download</button></div>
+                </div>
+            </div>
+
+            <!-- Settings Tab -->
+            <div id="adminSettings" class="tab-content" style="display: none;">
+                <h3><i class="fas fa-cog"></i> System Settings</h3>
+                <div class="settings-form">
+                    <div class="setting-group"><label>School Name</label><input type="text" value="Springfield School District" class="setting-input"></div>
+                    <div class="setting-group"><label>Academic Year</label><input type="text" value="2024-2025" class="setting-input"></div>
+                    <div class="setting-group"><label>Session Timeout (minutes)</label><input type="number" value="30" class="setting-input"></div>
+                    <button class="save-btn" onclick="showNotification('Settings saved')">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== TEACHER DASHBOARD ==================== -->
+    <div id="teacherDashboard" class="dashboard-container" style="display: none;">
+        <div class="dashboard-header teacher-header">
+            <div class="user-info">
+                <h2 id="teacherName">Teacher Name</h2>
+                <p><i class="fas fa-chalkboard-user"></i> Role: <span id="teacherRole">Teacher</span></p>
+                <p><i class="fas fa-building"></i> Department: Science & Mathematics</p>
+            </div>
+            <div class="header-actions">
+                <button class="logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Sign Out
+                </button>
+            </div>
+        </div>
+
+        <div class="dashboard-tabs">
+            <button class="tab-btn active" onclick="showTeacherTab('overview')">
+                <i class="fas fa-chalkboard"></i> My Classes
+            </button>
+            <button class="tab-btn" onclick="showTeacherTab('assignments')">
+                <i class="fas fa-tasks"></i> Assignments
+            </button>
+            <button class="tab-btn" onclick="showTeacherTab('students')">
+                <i class="fas fa-users"></i> Students
+            </button>
+            <button class="tab-btn" onclick="showTeacherTab('attendance')">
+                <i class="fas fa-calendar-check"></i> Attendance
+            </button>
+            <button class="tab-btn" onclick="showTeacherTab('grades')">
+                <i class="fas fa-star"></i> Grades
+            </button>
+        </div>
+
+        <div class="dashboard-content">
+            <!-- My Classes Tab -->
+            <div id="teacherOverview" class="tab-content active">
+                <div class="welcome-message">
+                    <i class="fas fa-chalkboard"></i> Welcome, <span id="teacherWelcomeName">Teacher</span>! Here are your classes today.
+                </div>
+                <div class="class-schedule">
+                    <div class="schedule-item">
+                        <div class="schedule-time">8:00 AM - 9:30 AM</div>
+                        <div class="schedule-info"><strong>Mathematics - Grade 10A</strong><p>Chapter 7: Quadratic Equations</p><button class="small-btn" onclick="showNotification('Starting class')">Start Class</button></div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="schedule-time">10:00 AM - 11:30 AM</div>
+                        <div class="schedule-info"><strong>Physics - Grade 11B</strong><p>Laws of Motion</p><button class="small-btn" onclick="showNotification('Starting class')">Start Class</button></div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="schedule-time">1:00 PM - 2:30 PM</div>
+                        <div class="schedule-info"><strong>Calculus - Grade 12A</strong><p>Integration Techniques</p><button class="small-btn" onclick="showNotification('Starting class')">Start Class</button></div>
+                    </div>
+                </div>
+                <div class="stats-grid" style="margin-top: 1.5rem;">
+                    <div class="stat-card"><i class="fas fa-users"></i><h3 id="totalStudentsTeacher">0</h3><p>Total Students</p></div>
+                    <div class="stat-card"><i class="fas fa-tasks"></i><h3 id="pendingAssignments">0</h3><p>Pending Assignments</p></div>
+                    <div class="stat-card"><i class="fas fa-clock"></i><h3 id="todayClasses">0</h3><p>Classes Today</p></div>
+                </div>
+            </div>
+
+            <!-- Assignments Tab -->
+            <div id="teacherAssignments" class="tab-content" style="display: none;">
+                <h3><i class="fas fa-tasks"></i> Manage Assignments</h3>
+                <button class="create-btn" onclick="showNotification('Create new assignment form')"><i class="fas fa-plus"></i> Create New Assignment</button>
+                <div class="assignment-list">
+                    <div class="assignment-item"><div><strong>Algebra Homework</strong><p>Due: April 15, 2025</p></div><div><span class="badge pending">Pending</span><button class="small-btn" onclick="showNotification('Grade assignment')">Grade</button></div></div>
+                    <div class="assignment-item"><div><strong>Physics Lab Report</strong><p>Due: April 18, 2025</p></div><div><span class="badge in-progress">In Progress</span><button class="small-btn" onclick="showNotification('Grade assignment')">Grade</button></div></div>
+                    <div class="assignment-item"><div><strong>Chemistry Quiz</strong><p>Due: April 20, 2025</p></div><div><span class="badge pending">Pending</span><button class="small-btn" onclick="showNotification('Grade assignment')">Grade</button></div></div>
+                </div>
+            </div>
+
+            <!-- Students Tab -->
+            <div id="teacherStudents" class="tab-content" style="display: none;">
+                <h3><i class="fas fa-users"></i> My Students</h3>
+                <div class="student-list">
+                    <div class="student-card"><i class="fas fa-user-circle"></i><div><strong>Emma Watson</strong><p>Grade 10A - Roll No: 101</p></div><button class="small-btn" onclick="showNotification('View student details')">View Profile</button></div>
+                    <div class="student-card"><i class="fas fa-user-circle"></i><div><strong>James Wilson</strong><p>Grade 10A - Roll No: 102</p></div><button class="small-btn" onclick="showNotification('View student details')">View Profile</button></div>
+                    <div class="student-card"><i class="fas fa-user-circle"></i><div><strong>Sophia Martinez</strong><p>Grade 10A - Roll No: 103</p></div><button class="small-btn" onclick="showNotification('View student details')">View Profile</button></div>
+                </div>
+            </div>
+
+            <!-- Attendance Tab -->
+            <div id="teacherAttendance" class="tab-content" style="display: none;">
+                <h3><i class="fas fa-calendar-check"></i> Mark Attendance</h3>
+                <div class="attendance-form">
+                    <select class="attendance-select"><option>Select Class</option><option>Grade 10A - Mathematics</option><option>Grade 11B - Physics</option></select>
+                    <button class="submit-btn" onclick="showNotification('Attendance marked')">Mark Today's Attendance</button>
+                </div>
+                <div class="attendance-stats"><i class="fas fa-chart-line"></i> Today's Overall Attendance: <strong>89%</strong></div>
+            </div>
+
+            <!-- Grades Tab -->
+            <div id="teacherGrades" class="tab-content" style="display: none;">
+                <h3><i class="fas fa-star"></i> Grade Management</h3>
+                <div class="grade-table-container">
+                    <table class="data-table">
+                        <thead><tr><th>Student Name</th><th>Subject</th><th>Mid Term</th><th>Final</th><th>Average</th><th>Grade</th></tr></thead>
+                        <tbody>
+                            <tr><td>Emma Watson</td><td>Mathematics</td><td>85</td><td>-</td><td>85</td><td>A-</td></tr>
+                            <tr><td>James Wilson</td><td>Mathematics</td><td>78</td><td>-</td><td>78</td><td>B+</td></tr>
+                            <tr><td>Sophia Martinez</td><td>Mathematics</td><td>92</td><td>-</td><td>92</td><td>A</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== STUDENT DASHBOARD ==================== -->
+    <div id="studentDashboard" class="dashboard-container" style="display: none;">
+        <div class="dashboard-header student-header">
+            <div class="user-info">
+                <h2 id="studentName">Student Name</h2>
+                <p><i class="fas fa-user-graduate"></i> Role: <span id="studentRole">Student</span></p>
+                <p><i class="fas fa-id-card"></i> Grade: 10 - Section A</p>
+            </div>
+            <div class="header-actions">
+                <button class="logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Sign Out
+                </button>
+            </div>
+        </div>
+
+        <div class="dashboard-tabs">
+            <button class="tab-btn active" onclick="showStudentTab('overview')">
+                <i class="fas fa-home"></i> Overview
+            </button>
+            <button class="tab-btn" onclick="showStudentTab('courses')">
+                <i class="fas fa-book"></i> My Courses
+            </button>
+            <button class="tab-btn" onclick="showStudentTab('assignments')">
+                <i class="fas fa-tasks"></i> Assignments
+            </button>
+            <button class="tab-btn" onclick="showStudentTab('grades')">
+                <i class="fas fa-chart-line"></i> My Grades
+            </button>
+            <button class="tab-btn" onclick="showStudentTab('attendance')">
+                <i class="fas fa-calendar-check"></i> Attendance
+            </button>
+        </div>
+
+        <div class="dashboard-content">
+            <!-- Student Overview Tab -->
+            <div id="studentOverview" class="tab-content active">
+                <div class="welcome-message">
+                    <i class="fas fa-smile"></i> Hello, <span id="studentWelcomeName">Student</span>! Welcome to your learning portal.
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card"><i class="fas fa-book"></i><h3 id="enrolledCourses">0</h3><p>Enrolled Courses</p></div>
+                    <div class="stat-card"><i class="fas fa-tasks"></i><h3 id="pendingTasks">0</h3><p>Pending Assignments</p></div>
+                    <div class="stat-card"><i class="fas fa-star"></i><h3 id="avgGrade">0</h3><p>Average Grade</p></div>
+                    <div class="stat-card"><i class="fas fa-calendar-check"></i><h3 id="attendanceRate">0</h3><p>Attendance Rate</p></div>
+                </div>
+                <div class="quick-actions">
+                    <h3><i class="fas fa-bolt"></i> Quick Access</h3>
+                    <div class="action-buttons">
+                        <button class="action-btn" onclick="showNotification('Opening assignments')"><i class="fas fa-tasks"></i> View Assignments</button>
+                        <button class="action-btn" onclick="showNotification('Opening schedule')"><i class="fas fa-calendar"></i> Class Schedule</button>
+                        <button class="action-btn" onclick="showNotification('Viewing grades')"><i class="fas fa-chart-line"></i> Check Grades</button>
+                    </div>
+                </div>
+                <div class="announcements">
+                    <h3><i class="fas fa-bullhorn"></i> Announcements</h3>
+                    <div class="announcement-item"><i class="fas fa-megaphone"></i><div><strong>School Holiday</strong><p>April 25th - No classes due to holiday</p></div></div>
+                    <div class="announcement-item"><i class="fas fa-megaphone"></i><div><strong>Mid-Term Exams</strong><p>Starting from May 5th, 2025</p></div></div>
+                </div>
+            </div>
+
+            <!-- My Courses Tab -->
+            <div id="studentCourses" class="tab-content" style="display: none;">
+                <h3><i class="fas fa-book"></i> My Enrolled Courses</h3>
+                <div class="course-grid">
+                    <div class="course-card"><i class="fas fa-calculator"></i><h4>Mathematics</h4><p>Teacher: Dr. Smith</p><p>Progress: 75%</p><div class="progress-bar"><div class="progress-fill" style="width:75%"></div></div><button class="small-btn" onclick="showNotification('Opening course')">Continue Learning</button></div>
+                    <div class="course-card"><i class="fas fa-atom"></i><h4>Physics</h4><p>Teacher: Mr. Johnson</p><p>Progress: 60%</p><div class="progress-bar"><div class="progress-fill" style="width:60%"></div></div><button class="small-btn" onclick="showNotification('Opening course')">Continue Learning</button></div>
+                    <div class="course-card"><i class="fas fa-flask"></i><h4>Chemistry</h4><p>Teacher: Ms. Davis</p><p>Progress: 80%</p><div class="progress-bar"><div class="progress-fill" style="width:80%"></div></div><button class="small-btn" onclick="showNotification('Opening course')">Continue Learning</button></div>
+                </div>
+            </div>
+
+            <!-- Assignments Tab -->
+            <div id="studentAssignments" class="tab-content" style="display: none;">
+                <h3><i class="fas fa-tasks"></i> My Assignments</h3>
+                <div class="assignment-list">
+                    <div class="assignment-item"><div><strong>Algebra Worksheet</strong><p>Due: April 15, 2025 - Mathematics</p></div><div><span class="badge pending">Pending</span><button class="small-btn" onclick="showNotification('Submit assignment')">Submit</button></div></div>
+                    <div class="assignment-item"><div><strong>Physics Lab Report</strong><p>Due: April 18, 2025 - Physics</p></div><div><span class="badge in-progress">In Progress</span><button class="small-btn" onclick="showNotification('Continue assignment')">Continue</button></div></div>
+                    <div class="assignment-item"><div><strong>Chemistry Quiz</strong><p>Due: April 20, 2025 - Chemistry</p></div><div><span class="badge pending">Pending</span><button class="small-btn" onclick="showNotification('Start quiz')">Start</button></div></div>
+                </div>
+            </div>
+
+            <!-- Grades Tab -->
+            <div id="studentGrades" class="tab-content" style="display: none;">
+                <h3><i class="fas fa-chart-line"></i> My Grades</h3>
+                <div class="grade-summary">
+                    <div class="grade-card"><h4>Mathematics</h4><p>85%</p><div class="progress-bar"><div class="progress-fill" style="width:85%"></div></div><span class="grade-letter">A-</span></div>
+                    <div class="grade-card"><h4>Physics</h4><p>78%</p><div class="progress-bar"><div class="progress-fill" style="width:78%"></div></div><span class="grade-letter">B+</span></div>
+                    <div class="grade-card"><h4>Chemistry</h4><p>92%</p><div class="progress-bar"><div class="progress-fill" style="width:92%"></div></div><span class="grade-letter">A</span></div>
+                    <div class="grade-card"><h4>Biology</h4><p>88%</p><div class="progress-bar"><div class="progress-fill" style="width:88%"></div></div><span class="grade-letter">B+</span></div>
+                </div>
+            </div>
+
+            <!-- Attendance Tab -->
+            <div id="studentAttendance" class="tab-content" style="display: none;">
+                <h3><i class="fas fa-calendar-check"></i> My Attendance</h3>
+                <div class="attendance-summary">
+                    <div class="attendance-circle">92%<span>Attendance</span></div>
+                    <div class="attendance-details">
+                        <div class="attendance-month"><strong>March 2025</strong><div class="att-bars"><span class="present">18 days</span><span class="absent">2 days</span></div></div>
+                        <div class="attendance-month"><strong>February 2025</strong><div class="att-bars"><span class="present">20 days</span><span class="absent">1 day</span></div></div>
+                        <div class="attendance-month"><strong>January 2025</strong><div class="att-bars"><span class="present">19 days</span><span class="absent">3 days</span></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+</body>
+</html>
